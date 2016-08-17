@@ -1,0 +1,100 @@
+NWN Server Administration Installation Instructions
+
+Installation of NWN Server Administration is pretty 
+easy and straight forward as long as you have the 
+prerequisites installed correctly.  In order to run 
+NWN Server Administration you need to have the following:
+
+Linux Server (any version of Linux should work, but tested on Redhat Linux 8)
+Apache (1.3 or 2.0 should work just fine)
+PHP
+HTPASSWD File for Access Control.
+Expect installed in /usr/bin (else you will have to manually edit all the expect scripts)
+Screen in path (Installed automatically with most Linux installations)
+NeverWinter Nights Server Software (Requires files from the original NeverWinter Nights CD)
+
+After you have installed the following, and Apache with PHP 
+support is running correctly, then installing NWN Server 
+Administration is quite simple, but before we get there, 
+here are some things to check and make sure of in your 
+PHP and Apache configurations:
+
+In your php.ini:
+
+Make sure register_globals is on.
+post_max_size should be increased, mine is set to 100M.  This is what determines the maximum size of files when uploading/posting.
+file_uploads should be on.
+upload_max_size is related to above and should be set the same as post_max_size.
+safe_mode should be off.
+If you have a LimitRequestBody <value> line, change the value to represent what size you want to limit uploads to.  <value> is in bytes.
+
+In your httpd.conf:
+
+Apache should be running under a non-privileged user such as nobody.
+For the directory where you will put NWN Server Administration, you should have the following set: 
+	<Directory "/your/directory">
+	Options Indexes FollowSymLinks MultiViews 
+	AllowOverride AuthConfig
+	Order allow,deny
+	Allow from all
+	</Directory>
+Set DirectoryIndex to index.html and index.php
+
+Your NWN Server Installation:
+
+Make sure all files user and group is set to the same user and group that Apache is running under.
+
+I make it a habit when I install Apache to use Virtual Hosts, that way if I 
+ever want to put up another page on that server, it's pretty easily done.  
+
+After the above is done, and everything is running correctly, unzip/untar the 
+NWNPHPAdmin-x.x.x.tar.zip to where you want it installed:
+
+cd /directory
+tar zxvf /path/to/NWNPHPAdmin-x.x.x.tar.zip
+Change ownership and access of files to same user Apache is running under:
+chown -R user:user /directory
+chmod -R 775 /directory
+
+Setup your VirtualHost in Apache:
+
+<VirtualHost *>
+ServerName nwnadmin.url.com1
+ServerAdmin yourname@yourdomain.com
+DocumentRoot /directory/to/nwnserveradmin
+CustomLog /usr/local/apache/logs/nwncontrol_access_log combined
+</VirtualHost>
+
+Restart Apache:  /etc/init.d/httpd restart
+
+Point your browser towards the server, and the page should come up.  Initially 
+when it first comes up, if any path's are incorrect it will show the path page 
+and show an **Incorrect Path** for anything that's not correct, you should change 
+these path's to point towards the correct file, then click Save.
+
+Also on User Privileges, an initial install will not have access control enabled, 
+you will be able to do anything, if you wish to setup access control, be sure to 
+first set your path for htpasswd, when you set the path to htpasswd, and supply 
+a user auth file the .htaccess file will be created for you, and will look like
+this:
+
+AuthName "Restricted Stuff"
+AuthType Basic
+AuthUserFile /path/to/userfile
+Require valid-user
+
+When you set the path for .htpasswd, and for the userauth file, it will come up
+and ask you for the initial username and password, and will create that user,
+and add it to the administrators list.
+
+NOTE: If you are upgrading between versions, sometimes new features require new 
+programs where I need to have the path's for those programs, when I update the 
+path's list, it's always good to remove your path's file and let it recreate it.  
+You will have to reset all your path's again.  The file is located in the main 
+directory of NWN Server Administration is is called "pathfile". 
+
+If you have any problems or difficulties, please DO NOT email me directly, 
+please post your question/problem in our Message Boards (http://projects.putercom.org/forum/viewforum.php?f=5)
+
+ENJOY!  
+

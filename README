@@ -1,0 +1,50 @@
+NWN Server Administration was originally written by Tim Geiges.  
+I downloaded and installed Tim's version simply to use for my 
+server to play the game; I didn't have an intent to improve 
+upon the program.  Once I started playing the game with it, 
+I thought of other features I'd like to see. I also looked around 
+to see if there were any other programs out there, unfortunately 
+there wasn't much for Linux, and this really disappointed me.  
+I started looking at the Windows front-ends, and found even more 
+features that I'd like to add.  At that point I decided that I would 
+take Tim's program and improve it with more features than ever, and 
+that's how it came to be what it is today.
+
+NWN Server Administration is designed to control a Linux server running 
+the NeverWinter Nights server software.  It allows for multiple users to 
+be able to log in, manage their characters (if you give them access to), upload
+modules and other files, check out who's playing and what module is running.  
+Listed below are some of the features within the program:
+
+Multiple users and permissions for each user.
+Pseudo smart path's. (instead of having to edit a text file to set all the path's, 
+     the software will automatically start with a default path, and if the path is 
+     incorrect it will bring up the path setting's screen and allow you to put in the 
+     correct path.  It will then update the configuration file)
+Backup Administration allows you to set what files and when to backup, it will then 
+     create a script and schedule it in a cron job.
+Game Settings allows you the change the settings of the game, settings that are hot 
+     swappable will be applied to the current running game if a game is running.
+User Administration allows you to create/delete users, as well as set their permissions.
+Character Administration allows you to manage your characters in your vault.  
+     View/Delete/Upload.  If you have administrator status, you can manage anyone's characters.
+Ability to Delete/Download/Upload Modules, Movies, Music, or HAK files.
+Ability to Delete Saved Games
+Ability to Ban, Kick, UnBan Users by IP Address, CD-Key, or Name.
+
+NWN Server Administration requires the following:
+
+Linux Server (any version of Linux should work, but tested on Redhat Linux 8)
+Apache (1.3 or 2.0 should work just fine)
+PHP
+HTPASSWD File for Access Control.
+Expect installed in /usr/bin (else you will have to manually edit all the expect scripts)
+Screen in path (Installed automatically with most Linux installations)
+NeverWinter Nights Server Software (Requires files from the original NeverWinter Nights CD) 
+
+In addition to the above list, certain settings need to be set in the configuration files for 
+PHP and Apache.  Reading the Installation guide is highly recommended, especially if you are 
+experiencing problems. (http://www.putercom.org/NWNAdmin/installinstructions.htm)  
+Also we have a Message Board setup for Help, Questions, Opinions, etc.
+http://projects.putercom.org/forum/viewforum.php?f=5
+

@@ -1,0 +1,43 @@
+#!/usr/bin/expect -f
+set msg [lindex $argv 0]
+set force_conservative 0  ;# set to 1 to force conservative mode even if
+			  ;# script wasn't run conservatively originally
+if {$force_conservative} {
+	set send_slow {1 .1}
+	proc send {ignore arg} {
+		sleep .1
+		exp_send -s -- $arg
+	}
+}
+
+set timeout 5 
+spawn screen -r
+match_max 100000
+sleep 2
+send -- "say Server will be shutting down in a count of 10!\r"
+sleep 2 
+send -- "say 10........................................\r"
+sleep 2 
+send -- "say 9.........................................\r"
+sleep 2 
+send -- "say 8.........................................\r"
+sleep 2 
+send -- "say 7.........................................\r"
+sleep 2 
+send -- "say 6.........................................\r"
+sleep 2 
+send -- "say 5.........................................\r"
+sleep 2 
+send -- "say 4.........................................\r"
+sleep 2 
+send -- "say 3.........................................\r"
+sleep 2 
+send -- "say 2.........................................\r"
+sleep 2 
+send -- "say 1.........................................\r"
+sleep 2 
+send -- "say Server Going down now!....................\r"
+sleep 2 
+send -- "exit\r"
+expect eof
+

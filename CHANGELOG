@@ -1,0 +1,158 @@
+o = bug fix
++ = addition
+x = change
+
+CHANGELOG
+
+==========
+0.9.8
+==========
+o = Fixed problem with Character Administration with usernames with symbols in their names such as '-'.  Also fixed
+    the Administration priviledges with same problem.
+o = Fixed issue with a Non-Privilidged user couldn't download the NWN Campaigns.
+o = Fixed issue with deleting a character with a symbol in the name.
++ = Added HotU protraits and classes.
+x = Changed access priviledges on Character Administration.  Made Deleting characters a seperate priviledge.
+x = Changed access on Uploading files, Upload is now a seperate priviledge.
++ = Added a NWN Server Administration Options page, currently has adminemail address setting, and ability to hide/show
+    unpriviledged commands to the user.
+
+==========
+0.9.7
+==========
+o = Fixed problem with an initial install, if you didn't setup User Authentication or tried to set it up the program
+    would get an error.
+o = If Server crashes, or some other weird mishappening, then the next time you load a module, it will have problems
+    bringing up the status, this is because of a corrupted Logs.x file.  Upon killing the server, I put in code to
+    delete these files, as they are not needed, this will ensure a clean start.
++ = Added an automated system to help setup User Authentication and the associated files.
+x = Rewrote the README file.
++ = Wrote INSTALL instructions.
+
+==========
+0.9.6
+==========
+o = Fixed Login names with spaces. They were not working to be able to edit characters or change passwords, fixed this so 
+    users with spaces in their names now work correctly.
+o = When uploading characters, the default permissions were not correct, this is now fixed.
+o = If you changed the path's to your NWN Server directory, the symbolic links would not change, I added code into the
+    path save area, to delete the symbolic links if they exist (if you change any path settings), they will get recreated
+    from the check path code, with the correct links.
+o = Fixed problem when giving users priviledges, if you put a , and a space after, it would error saying that the user does
+    not exists.  Added code to remove all spaces between commas, but still allows for usernames with spaces in them.
++ = Added full Backup Administration over NWN Files.  This feature will build a script based upon what you want to backup
+    and will automatically schedule it in CRON for you.
++ = Added ability to view general character stats in Character Administration.
++ = Added new SoU Character Classes and Races.
++ = Added NWM (Neverwinter Nights Campaign) Support.  *NOTE*: This was originally installed and implemented by the original 
+    author, but when I first started reprogramming it, I pulled it out, not knowing exactly why it was there.  I can see a 
+    need for this now, so I added it back in.
+o = Server version 1.30 and > now work to Kick/Ban by CD-Key.
+o = Fixed problem with uploading files with characters other than alphanumeric.
+
+==========
+0.9.5
+==========
+o = Certain circumstances the server will stop logging to the logs.0 directory and start a new one with the next number
+    i.e logs.1, logs.2, etc.  This in turn would cause the status screen not to display properly.  I put in a check on
+    the Info and Status screens, if anything other than logs.0 exists, then it tells you to save your game, and stop
+    and restart the server, it deletes all logs.x directories.  When you stop/restart the server, it will recreate the
+    logs.0 directory.  Found out that this happens if you already have a server running and you attempt to start another
+    one.  I must have found this out during testing as I was starting a server manually via commandline. 
+o = Fixed BanInfo screen from doing a refresh automatically.  
++ = When you change a game setting, there are some settings that can be changed while the server is running, these are:
+    Maxplayers, Minlevel, MaxLevel, PauseandPlay, ELC, ILR, Oneparty, Difficulty, AutoSaveInterval, PlayerPassword,
+    DMPassword, AdminPassword, and Servername.  Previous, when you changed these in game settings, it only changed them in
+    the config file, and you would have to stop/start the server for them to take affect.  Now, when you change these, it
+    will change them on the running server as well.  I created an expect script to do this.
+o = Ban/Unban/Kick wasn't working properly under Server version 1.30, I modified the script to accomodate for the changes.  
+    Though unable to Ban or Kick a user by CD Key, I believe this to be a bug in server version 1.30.  Also added the client 
+    info to the kick/ban screen, instead of having to click on clientinfo off that screen.
++ = Added a way to manually ban an IP, User, or CD Key.
+
+==========
+0.9.0
+==========
+x = Wayne Catterton now improving upon program.
+o = Fixed Upload Module to display, and to upload to appropriate directory.  Also made it check to make sure it was a .mod file.
++ = Added ability to Delete Save Game Slots.
++ = Added Admin users variable anyone that is not listed in here, will not see admin type commands on Apache servers with PHP 
+    installed as a mod.  If you don't use any authentication methods, then set admin variable to equal NONE.
++ = Added Administration settings for setting the Admin Users variable, and to change what functions each user can control.
+x = Change status and info screens to include module name that is running, and if no module is running it displays that
+    Server is not running.
++ = Added User Administration for managing your users that connect to the site. Ability to Add/Delete Users and change passwords.
++ = Added Path settings area that allows you to specify the various path's and such of where things reside.
++ = Added ability for logged on user to change password.
++ = Added ability to Upload HAK files to Server, Download HAK files from server.  Lists what HAK files are on the server.
++ = Added ability to Upload Music files to Server, Download Music files from server.  Lists what Music files are on the server.
++ = Added ability to Upload Movie files to Server, Download Movie files from server.  Lists what Movie files are on the server.
++ = Added ability to Upload a .zip file, it will unzip the file and copy the
+    files to the appropriate directories, unless the file already exists, then it will let you know.
+x = Adjusted Expect scripts to wait for prompts when loading modules/saved games, also added a slight delay between when it loads 
+    the module and refreshes the screen, this fixes a problem where you'd get garbage on the screen.
+x = Cleaned up code (tabbed it out, or structured it)
++ = If a configuration file does not exist on the server, then it will create one with default settings.
++ = Added Character Administration (Ability to Uplaod/Download characters in your vault, as well as delete any you don't wish to
+    have anymore.)
++ = Added a full system to Backup data on server, it will schedule it and place it in a CRON job.
+x = When displaying server status, made the module name a link you can click to get the info about the current running module.
+x = Added Descriptions to Game Settings.
+o = Fixed Player, DM and Admin password, if you leave box blank, then it set's them to = "", this in turn will disable them when the 	server is run.
+x = When saving a Game, if you have administrator priveledges, it will allow you to overwrite a slot, if you don't, then you have to	choose an empty slot.
+o = Fixed/Optimized expect scripts.  Set Timeouts to 5 minutes (Some large modules may take a long time to laod), added commands to 	clear and detatch from the screen sessions to make things a little quicker.  Added expects for common errors that may come up, 
+    so that it will not wait forever.
+o = Tracked down slowness when running expect/screen under the nobody account, found out it was getting permission denied for every
+    option listed in the /etc/screenrc file.  Tried to figure it out, but was unable to come up with a solution.  So I set Apache to
+    run under a valid user account.  
+x = Fixed Info and Status screens, if server information is garbled or doesn't come up, it will wait 10 seconds then refresh.
+    Loading of large modules sometimes makes it take a while before it's able to get a status of the server.
+
+
+==========
+0.8.2
+==========
+o = SECURITY FIX (There was an issue that allowed people to possibly execute aribitrary code)
+    Thanks to Joe for pointing this one out, I'm still learning.   :-)
+
+==========
+0.8.1
+==========
+o = Fixed save path bug (wasn't allowing save games to work, Jason thanks for pointing this out.)
++ = Backup/Download/Rotate Server Vault
+
+==========
+0.8
+==========
+o = Richard O'Doherty-Gregg Fixed spaces in module, and server names(Thanks!)
++ = Richard O'Doherty-Gregg Added Zoligoto's PHP Mod Hak Erf preview V0.1 for more mod info (Thanks Again!)
++ = Made Module Info Collapsable/Expandable.
++ = Added some new stats info(shows when server was started, and how many players had joined since then)
++ = User Join/Left Log (shows a list of all players that had joined since the server was started)
++ = Added Change Running Passwords Without restart (nwserver Ver >= 1.21)
+x = Move clientinfo to kick/ban/clientinfo page
+
+==========
+0.7
+==========
+o = Fixed Status Output
++ = Kick
++ = Ban
++ = Listbans/Unban
++ = Client info
+
+
+==========
+0.5
+==========
+o = Cleaned up output on a lot of scripts (Status output needs work still)
++ = Added Change/Save Server Settings
++ = Added Start nwserver script
++ = Added Stop/Kill server script  (nicely / immediately)
++ = Added Load New Module (basically kills and restarts with a different module but its a single-click process)
++ = Added Load Saved Game (lets you browse saved games and single-click load)
++ = Added Say (send system messages to all players)
++ = Added Status monitor (needs some cleanup but works for now)
+
+
+------------------------------------------------

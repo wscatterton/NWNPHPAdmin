@@ -1,0 +1,8 @@
+#!/usr/bin/expect -f
+set type [lindex $argv 0]
+set usethis [lindex $argv 1]
+set timeout 2 
+spawn screen -r
+match_max 100000
+send -- "unban$type $usethis\r"
+expect eof

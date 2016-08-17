@@ -1,0 +1,11 @@
+#!/usr/bin/expect -f
+set op0 [lindex $argv 0]
+
+set timeout 300
+spawn screen -r
+match_max 100000
+send -- "load $op0\r"
+expect -exact "Server: Saved game loaded"
+send -- "\001C"
+send -- "\001d"
+expect eof

@@ -1,0 +1,6 @@
+#!/usr/bin/expect -f
+set timeout 1
+spawn screen -r
+match_max 100000
+send -- "listbans\r"
+expect eof

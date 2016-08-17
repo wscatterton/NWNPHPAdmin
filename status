@@ -1,0 +1,7 @@
+#!/usr/bin/expect -f
+set msg [lindex $argv 0]
+set timeout 1
+spawn screen -r
+match_max 100000
+send -- "status\r"
+expect eof

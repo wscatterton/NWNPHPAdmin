@@ -1,0 +1,7 @@
+#!/usr/bin/expect -f
+set timeout 2 
+spawn screen -r
+match_max 100000
+send -- "\001C"
+send -- "\001d"
+expect eof

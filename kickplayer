@@ -1,0 +1,8 @@
+#!/usr/bin/expect -f
+set usethis [lindex $argv 0]
+set timeout 1 
+spawn screen -r
+match_max 100000
+send -- "kick $usethis\r"
+send -- "\001d"
+expect eof

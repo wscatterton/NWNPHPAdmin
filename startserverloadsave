@@ -1,0 +1,33 @@
+#!/usr/bin/expect -f
+set op0 [lindex $argv 0]
+set op1 [lindex $argv 1 ]
+set op2 [lindex $argv 2 ]
+set op3 [lindex $argv 3 ]
+set op4 [lindex $argv 4 ]
+set op5 [lindex $argv 5 ]
+set op6 [lindex $argv 6 ]
+set op7 [lindex $argv 7 ]
+set op8 [lindex $argv 8 ]
+set op9 [lindex $argv 9 ]
+set op10 [lindex $argv 10 ]
+set op11 [lindex $argv 11 ]
+set op12 [lindex $argv 12 ]
+set op13 [lindex $argv 13 ]
+set op14 [lindex $argv 14 ]
+set op15 [lindex $argv 15 ]
+set op16 [lindex $argv 16 ]
+set op17 [lindex $argv 17 ]
+set op18 [lindex $argv 18 ]
+set op19 [lindex $argv 19 ]
+set op20 [lindex $argv 20 ]
+
+cd $op20 
+set timeout 300
+spawn screen ./nwserver -maxclients $op0 -minlevel $op1 -maxlevel $op2 -pauseandplay $op3 -pvp $op4 -servervault $op5 -elc $op6 -ilr $op7 -gametype $op8 -oneparty $op9 -difficulty $op10 -autosaveinterval $op11 -playerpassword $op12 -dmpassword $op13 -adminpassword $op14 -servername $op15 -publicserver $op16 -reloadwhenempty $op17 -port $op18
+match_max 100000
+expect -exact "Server: Running..."
+send -- "load $op19\r"
+expect -exact "Server: Saved game loaded"
+send -- "\001C"
+send -- "\001d"
+expect eof
